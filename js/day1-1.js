@@ -1,19 +1,7 @@
 const fs = require("fs");
-const { exit } = require("process");
 
 const INPUT_FILENAME = "input1-1.txt";
 const PRODUCT_SUM = 2020;
-
-// Read from input
-const textData = fs.readFileSync(INPUT_FILENAME, "utf8");
-
-if (!textData) {
-    exit(1);
-}
-
-const input = textData
-    .split("\n")
-    .map((x) => +x);
 
 function matchSum(inputs, sum) {
     const sortedInput = inputs.sort((x, y) => x-y);
@@ -40,12 +28,24 @@ function getProductSum(input, sum) {
     return finalResult;
 }
 
-const result = getProductSum(input, PRODUCT_SUM);
-console.log(result);
+function run() {
+    const textData = fs.readFileSync(INPUT_FILENAME, "utf8");
+
+    if (!textData) {
+        console.error("Invalid input");
+        return null;
+    }
+
+    const input = textData
+        .split("\n")
+        .map((x) => +x);
+
+    const result = getProductSum(input, PRODUCT_SUM);
+    return result;
+}
 
 module.exports = {
+    run,
     matchSum,
     getProductSum
 };
-
-// Output

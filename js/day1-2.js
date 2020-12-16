@@ -1,25 +1,10 @@
 const fs = require("fs");
-const { exit } = require("process");
 
 const INPUT_FILENAME = "input1-1.txt";
 const PRODUCT_SUM = 2020;
 
-// Read from input
-const textData = fs.readFileSync(INPUT_FILENAME, "utf8");
-
-if (!textData) {
-    exit(1);
-}
-
-const input = textData
-    .split("\n")
-    .map((x) => +x)
-    .sort((x, y) => x-y);
-input.shift();
-
 function matchThreeSum(inputs, sum) {
     const sortedInput = inputs.sort((x, y) => x-y);
-    console.log(sortedInput);
 
     // Brute force
     for (let i = 0; i < sortedInput.length; i++) {
@@ -41,17 +26,32 @@ function getProductSum(input, sum) {
         return null;
     }
 
-    console.log(sumResult);
     const finalResult = sumResult[0] * sumResult[1] * sumResult[2];
     return finalResult;
 }
 
-const result = getProductSum(input, PRODUCT_SUM);
-console.log(result);
+
+
+function run() {
+    // Read from input
+    const textData = fs.readFileSync(INPUT_FILENAME, "utf8");
+
+    if (!textData) {
+        return null;
+    }
+
+    const input = textData
+        .split("\n")
+        .map((x) => +x)
+        .sort((x, y) => x-y);
+    input.shift();
+
+    const result = getProductSum(input, PRODUCT_SUM);
+    return result;
+}
 
 module.exports = {
+    run,
     matchThreeSum,
     getProductSum
 };
-
-// Output
